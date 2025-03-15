@@ -1,0 +1,15 @@
+version: '3'
+
+
+services:
+  db:
+    image: postgres:14.3
+    container_name: tesloshopdb
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - ./posgres:/var/lib/postgresql/data
