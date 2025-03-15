@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import {
   IsString,
   MinLength,
@@ -45,4 +44,9 @@ export class CreateProductDto {
   @IsString({ each: true })
   @IsOptional()
   tags: string[];
+
+  @IsArray()
+  @IsString({ each: true })
+  @IsOptional()
+  images?: string[];
 }
