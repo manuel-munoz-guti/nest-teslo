@@ -40,8 +40,10 @@ $ yarn install
 # 5. Running Docker DB
 $ docker-compose up -d
 
-```
+# 6. Execute seed endpoint for populatin db
+$ http://localhost:300/api/v1/seed
 
+```
 
 
 ## Compile and run the project
