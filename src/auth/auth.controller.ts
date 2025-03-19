@@ -8,6 +8,7 @@ import { RawHeaders } from './decorators/raw-headers.decorators';
 import { UserRoleGuard } from './guards/user-role/user-role.guard';
 import { RoleProtected } from './decorators/role-protected.decorator';
 import { ValidRoles } from './interfaces/valid-roles.interface';
+import { Auth } from './decorators/auth.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -21,6 +22,12 @@ export class AuthController {
   @Post('login')
   loginUser(@Body() loginUserDto: LoginUserDto) {
     return this.authService.login(loginUserDto);
+  }
+
+  @Get('check-status')
+  @Auth()
+  checkAuthStatus(@GetUser() user: User) {
+    return this.authService.checkAuthStatus(user);
   }
 
   @Get('private')
@@ -46,6 +53,16 @@ export class AuthController {
     return {
       ok: true,
       message: 'You are in a private route 2',
+      user,
+    };
+  }
+
+  @Get('private3')
+  @Auth(ValidRoles.superUser)
+  testingPrivateRouteThree(@GetUser() user: User) {
+    return {
+      ok: true,
+      message: 'You are in a private route 3',
       user,
     };
   }

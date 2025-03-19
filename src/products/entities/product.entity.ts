@@ -3,10 +3,12 @@ import {
   BeforeUpdate,
   Column,
   Entity,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ProductImage } from './product-image.entity';
+import { User } from '../../auth/entities/user.entity';
 
 @Entity({ name: 'products' })
 export class Product {
@@ -45,6 +47,11 @@ export class Product {
     eager: true,
   })
   images?: ProductImage[];
+
+  @ManyToOne(() => User, (user) => user.products, {
+    eager: true, // Con esto le decimos que cuando se consulte el product se agrege el usuario a la data
+  })
+  user: User;
 
   @BeforeInsert()
   checkSlugInsert() {
